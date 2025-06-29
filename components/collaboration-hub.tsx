@@ -40,7 +40,9 @@ export function CollaborationHub({ events }: CollaborationHubProps) {
     }
   };
 
-  const activeUsers = [...new Set(events.slice(0, 10).map(e => e.user))];
+  // Fixed Set iteration - use Array.from() instead of spread operator
+  const uniqueUsersSet = new Set(events.slice(0, 10).map(e => e.user));
+  const activeUsers = Array.from(uniqueUsersSet);
 
   return (
     <Card className="shadow-lg border-0 bg-gradient-to-br from-blue-50 to-indigo-50">
