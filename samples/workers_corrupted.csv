@@ -1,0 +1,10 @@
+WorkerID,WorkerName,Skills,AvailableSlots,MaxLoadPerPhase,HourlyRate
+WR001,Alice Johnson,"programming,design,testing","[1,2,3,4,5]",2,45
+WR002,Bob Smith,,,1,50
+WR003,Carol Davis,"design,testing,management","invalid_json",3,55
+WR004,David Wilson,"programming,testing","[1,2,4,5]",0,40
+WR005,Eve Brown,"programming","[1,2,3,4,5]",abc,60
+WR006,Frank Miller,"","[1,2]",-1,35
+WR007,Grace Lee,"programming,design,testing","[1,2,3,4,5]",2,45
+WR007,Hank Johnson,"analysis","[2,3]",1,50
+WR008,InvalidWorker,"programming","not_json",xyz,invalid_rate 
