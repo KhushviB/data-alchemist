@@ -628,6 +628,13 @@ export default function Home() {
 
   const stats = getValidationStats();
 
+  // Transform data for RulesCreator component
+  const transformedData = {
+    clients: data.clients || [],
+    workers: data.workers || [],
+    tasks: data.tasks || []
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       <div className="container mx-auto px-4 py-8">
@@ -640,8 +647,10 @@ export default function Home() {
               </div>
               <div>
                 <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Data Alchemist
-                </h1> </div>
+                  DataCleaner AI
+                </h1>
+                <p className="text-gray-600 text-lg">The World's First Intelligent Database Configurator</p>
+              </div>
             </div>
             
             {/* Real-time Value Metrics */}
@@ -889,7 +898,7 @@ export default function Home() {
                 <RulesCreator
                   rules={businessRules}
                   onRulesChange={setBusinessRules}
-                  data={data}
+                  data={transformedData}
                   schemas={schemas}
                   aiSuggestions={aiSuggestions.rules}
                 />
