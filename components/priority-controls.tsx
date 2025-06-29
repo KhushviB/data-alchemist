@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Target, Clock, Shield, Users, Zap, BarChart3 } from 'lucide-react';
+import { Target, Clock, Shield, Users, Zap, BarChart3, CheckCircle } from 'lucide-react';
 import { PrioritySettings } from '@/app/page';
 
 interface PriorityControlsProps {
@@ -279,6 +279,3 @@ export function PriorityControls({ priorities, onPrioritiesChange }: PriorityCon
     </Tabs>
   );
 }
-
-// Import CheckCircle from lucide-react
-import { CheckCircle } from 'lucide-react';
