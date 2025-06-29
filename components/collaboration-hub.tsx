@@ -1,165 +1,137 @@
 'use client';
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Database, Download, FileSpreadsheet, Sparkles } from 'lucide-react';
-import { toast } from 'sonner';
-import { DataType, DataRow } from '@/app/page';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Users, MessageCircle, Clock, Activity } from 'lucide-react';
+import { CollaborationEvent } from '@/app/page';
 
-interface SampleDataLoaderProps {
-  onDataLoad: (type: DataType, data: DataRow[]) => void;
+interface CollaborationHubProps {
+  events: CollaborationEvent[];
 }
 
-export function SampleDataLoader({ onDataLoad }: SampleDataLoaderProps) {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const loadSampleData = async () => {
-    setIsLoading(true);
+export function CollaborationHub({ events }: CollaborationHubProps) {
+  const getTimeAgo = (timestamp: Date) => {
+    const now = new Date();
+    const diff = now.getTime() - timestamp.getTime();
+    const minutes = Math.floor(diff / 60000);
     
-    try {
-      // Load all three sample files
-      const [clientsResponse, workersResponse, tasksResponse] = await Promise.all([
-        fetch('/samples/clients.csv'),
-        fetch('/samples/workers.csv'),
-        fetch('/samples/tasks.csv')
-      ]);
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    return `${days}d ago`;
+  };
 
-      if (!clientsResponse.ok || !workersResponse.ok || !tasksResponse.ok) {
-        throw new Error('Failed to load sample data files');
-      }
-
-      const [clientsText, workersText, tasksText] = await Promise.all([
-        clientsResponse.text(),
-        workersResponse.text(),
-        tasksResponse.text()
-      ]);
-
-      // Parse CSV data with explicit typing
-      const parseCSV = (text: string): DataRow[] => {
-        const lines = text.trim().split('\n');
-        const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-        
-        return lines.slice(1).map(line => {
-          const values: string[] = []; // Explicitly type as string array
-          let current = '';
-          let inQuotes = false;
-          
-          for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"') {
-              inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-              values.push(current.trim().replace(/"/g, ''));
-              current = '';
-            } else {
-              current += char;
-            }
-          }
-          values.push(current.trim().replace(/"/g, ''));
-          
-          const row: DataRow = {};
-          headers.forEach((header, index) => {
-            row[header] = values[index] || '';
-          });
-          return row;
-        });
-      };
-
-      const clientsData = parseCSV(clientsText);
-      const workersData = parseCSV(workersText);
-      const tasksData = parseCSV(tasksText);
-
-      // Load data into the application
-      onDataLoad('clients', clientsData);
-      onDataLoad('workers', workersData);
-      onDataLoad('tasks', tasksData);
-
-      toast.success('Sample data loaded successfully! Includes edge cases for comprehensive testing.');
-    } catch (error) {
-      toast.error('Failed to load sample data: ' + (error as Error).message);
-    } finally {
-      setIsLoading(false);
+  const getActionColor = (action: string) => {
+    switch (action) {
+      case 'uploaded': return 'bg-blue-100 text-blue-800';
+      case 'reviewed': return 'bg-green-100 text-green-800';
+      case 'commented on': return 'bg-yellow-100 text-yellow-800';
+      case 'approved': return 'bg-emerald-100 text-emerald-800';
+      case 'flagged': return 'bg-red-100 text-red-800';
+      case 'updated': return 'bg-purple-100 text-purple-800';
+      case 'searched': return 'bg-indigo-100 text-indigo-800';
+      case 'auto-fixed': return 'bg-orange-100 text-orange-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
-  const downloadSampleFiles = async () => {
-    try {
-      const files = ['clients.csv', 'workers.csv', 'tasks.csv'];
-      
-      for (const file of files) {
-        const response = await fetch(`/samples/${file}`);
-        if (response.ok) {
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `sample_${file}`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        }
-      }
-      
-      toast.success('Sample files downloaded successfully!');
-    } catch (error) {
-      toast.error('Failed to download sample files');
-    }
-  };
+  // Fixed Set iteration - use Array.from() instead of spread operator
+  const uniqueUsersSet = new Set(events.slice(0, 10).map(e => e.user));
+  const activeUsers = Array.from(uniqueUsersSet);
 
   return (
-    <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
-      <CardContent className="p-4">
-        <div className="flex items-center gap-2 mb-3">
-          <Database className="h-5 w-5 text-blue-600" />
-          <span className="font-medium text-blue-900">Sample Data & Edge Cases</span>
-          <Badge variant="outline" className="bg-blue-100 text-blue-800">
-            <Sparkles className="h-3 w-3 mr-1" />
-            AI-Ready
+    <Card className="shadow-lg border-0 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Users className="h-5 w-5 text-blue-600" />
+          Team Collaboration
+          <Badge className="bg-blue-100 text-blue-800">
+            <Activity className="h-3 w-3 mr-1" />
+            Live
           </Badge>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {/* Active Users */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-blue-900">Active Now</span>
+            <Badge variant="outline">{activeUsers.length}</Badge>
+          </div>
+          <div className="flex -space-x-2">
+            {activeUsers.slice(0, 5).map((user, index) => (
+              <Avatar key={index} className="border-2 border-white w-8 h-8">
+                <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user}`} />
+                <AvatarFallback className="text-xs">
+                  {user.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
+            ))}
+            {activeUsers.length > 5 && (
+              <div className="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center">
+                <span className="text-xs text-gray-600">+{activeUsers.length - 5}</span>
+              </div>
+            )}
+          </div>
         </div>
-        
-        <p className="text-sm text-blue-700 mb-4">
-          Load comprehensive sample data with intentional edge cases to test all validation rules and AI features.
-        </p>
 
-        <div className="space-y-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <Button 
-              onClick={loadSampleData}
-              disabled={isLoading}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              {isLoading ? (
-                <>
-                  <Database className="h-4 w-4 mr-2 animate-pulse" />
-                  Loading...
-                </>
-              ) : (
-                <>
-                  <Database className="h-4 w-4 mr-2" />
-                  Load Sample Data
-                </>
-              )}
-            </Button>
-            
-            <Button 
-              onClick={downloadSampleFiles}
-              variant="outline"
-              className="border-blue-300 text-blue-700 hover:bg-blue-50"
-            >
-              <Download className="h-4 w-4 mr-2" />
-              Download CSVs
+        {/* Recent Activity */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-blue-900">Recent Activity</span>
+            <Button variant="ghost" size="sm" className="text-xs">
+              <MessageCircle className="h-3 w-3 mr-1" />
+              View All
             </Button>
           </div>
+          
+          <ScrollArea className="h-64 w-full">
+            <div className="space-y-3">
+              {events.map((event) => (
+                <div key={event.id} className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 transition-colors">
+                  <Avatar className="w-6 h-6">
+                    <AvatarImage src={event.avatar} />
+                    <AvatarFallback className="text-xs">
+                      {event.user.split(' ').map(n => n[0]).join('')}
+                    </AvatarFallback>
+                  </Avatar>
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-sm font-medium text-gray-900">{event.user}</span>
+                      <Badge variant="outline" className={`text-xs ${getActionColor(event.action)}`}>
+                        {event.action}
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-gray-600 mb-1">{event.details}</p>
+                    <div className="flex items-center gap-1 text-xs text-gray-400">
+                      <Clock className="h-3 w-3" />
+                      {getTimeAgo(event.timestamp)}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        </div>
 
-          <div className="text-xs text-blue-600 space-y-1">
-            <p>📊 <strong>20 Clients</strong> - Enterprise, Startup, SMB with priority levels 1-5</p>
-            <p>👥 <strong>25 Workers</strong> - Diverse skills, availability patterns, edge cases</p>
-            <p>📋 <strong>45 Tasks</strong> - Various durations, skill requirements, concurrency limits</p>
-            <p>🔍 <strong>Edge Cases</strong> - Duplicates, invalid JSON, circular dependencies, overloads</p>
+        {/* Quick Actions */}
+        <div className="space-y-2">
+          <span className="text-sm font-medium text-blue-900">Quick Actions</span>
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" size="sm" className="text-xs">
+              <MessageCircle className="h-3 w-3 mr-1" />
+              Comment
+            </Button>
+            <Button variant="outline" size="sm" className="text-xs">
+              <Users className="h-3 w-3 mr-1" />
+              Share
+            </Button>
           </div>
         </div>
       </CardContent>
