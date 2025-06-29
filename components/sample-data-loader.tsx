@@ -19,57 +19,145 @@ export function SampleDataLoader({ onDataLoad }: SampleDataLoaderProps) {
     setIsLoading(true);
     
     try {
-      // Load all three sample files
-      const [clientsResponse, workersResponse, tasksResponse] = await Promise.all([
-        fetch('/samples/clients.csv'),
-        fetch('/samples/workers.csv'),
-        fetch('/samples/tasks.csv')
-      ]);
+      // Generate sample data directly instead of loading from files
+      const clientsData: DataRow[] = [
+        {
+          ClientID: 'C001',
+          ClientName: 'Acme Corporation',
+          PriorityLevel: '5',
+          RequestedTaskIDs: 'T001,T002,T003',
+          GroupTag: 'Enterprise',
+          AttributesJSON: '{"budget": 500000, "deadline": "2024-Q2", "contact": "john.doe@acme.com"}'
+        },
+        {
+          ClientID: 'C002',
+          ClientName: 'TechStart Inc',
+          PriorityLevel: '4',
+          RequestedTaskIDs: 'T004,T005',
+          GroupTag: 'Startup',
+          AttributesJSON: '{"budget": 75000, "agile": true, "team_size": 12}'
+        },
+        {
+          ClientID: 'C003',
+          ClientName: 'Global Dynamics',
+          PriorityLevel: '3',
+          RequestedTaskIDs: 'T001,T006,T007',
+          GroupTag: 'Enterprise',
+          AttributesJSON: '{"budget": 300000, "compliance": "SOX", "regions": ["US", "EU"]}'
+        },
+        {
+          ClientID: 'C004',
+          ClientName: 'Local Bakery',
+          PriorityLevel: '2',
+          RequestedTaskIDs: 'T008',
+          GroupTag: 'SMB',
+          AttributesJSON: '{"budget": 15000, "seasonal": true}'
+        },
+        {
+          ClientID: 'C005',
+          ClientName: 'MegaCorp Industries',
+          PriorityLevel: '5',
+          RequestedTaskIDs: 'T002,T009,T010,T011',
+          GroupTag: 'Enterprise',
+          AttributesJSON: '{"budget": 1000000, "priority_projects": ["digital_transformation", "ai_initiative"]}'
+        }
+      ];
 
-      if (!clientsResponse.ok || !workersResponse.ok || !tasksResponse.ok) {
-        throw new Error('Failed to load sample data files');
-      }
+      const workersData: DataRow[] = [
+        {
+          WorkerID: 'W001',
+          WorkerName: 'Alice Johnson',
+          Skills: 'JavaScript,React,Node.js',
+          AvailableSlots: '[1,2,3,4,5]',
+          MaxLoadPerPhase: '3',
+          WorkerGroup: 'Frontend',
+          QualificationLevel: '5'
+        },
+        {
+          WorkerID: 'W002',
+          WorkerName: 'Bob Smith',
+          Skills: 'Python,Django,PostgreSQL',
+          AvailableSlots: '[1,3,5]',
+          MaxLoadPerPhase: '2',
+          WorkerGroup: 'Backend',
+          QualificationLevel: '4'
+        },
+        {
+          WorkerID: 'W003',
+          WorkerName: 'Carol Davis',
+          Skills: 'Java,Spring,Microservices',
+          AvailableSlots: '[2,4,6]',
+          MaxLoadPerPhase: '4',
+          WorkerGroup: 'Backend',
+          QualificationLevel: '5'
+        },
+        {
+          WorkerID: 'W004',
+          WorkerName: 'David Wilson',
+          Skills: 'React,TypeScript,GraphQL',
+          AvailableSlots: '[1,2,3]',
+          MaxLoadPerPhase: '2',
+          WorkerGroup: 'Frontend',
+          QualificationLevel: '3'
+        },
+        {
+          WorkerID: 'W005',
+          WorkerName: 'Emma Brown',
+          Skills: 'Python,Machine Learning,TensorFlow',
+          AvailableSlots: '[3,4,5,6]',
+          MaxLoadPerPhase: '3',
+          WorkerGroup: 'DataScience',
+          QualificationLevel: '5'
+        }
+      ];
 
-      const [clientsText, workersText, tasksText] = await Promise.all([
-        clientsResponse.text(),
-        workersResponse.text(),
-        tasksResponse.text()
-      ]);
-
-      // Parse CSV data with explicit typing
-      const parseCSV = (text: string): DataRow[] => {
-        const lines = text.trim().split('\n');
-        const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-        
-        return lines.slice(1).map(line => {
-          const values: string[] = []; // Explicitly type as string array
-          let current = '';
-          let inQuotes = false;
-          
-          for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"') {
-              inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-              values.push(current.trim().replace(/"/g, ''));
-              current = '';
-            } else {
-              current += char;
-            }
-          }
-          values.push(current.trim().replace(/"/g, ''));
-          
-          const row: DataRow = {};
-          headers.forEach((header, index) => {
-            row[header] = values[index] || '';
-          });
-          return row;
-        });
-      };
-
-      const clientsData = parseCSV(clientsText);
-      const workersData = parseCSV(workersText);
-      const tasksData = parseCSV(tasksText);
+      const tasksData: DataRow[] = [
+        {
+          TaskID: 'T001',
+          TaskName: 'User Authentication System',
+          Category: 'Security',
+          Duration: '2',
+          RequiredSkills: 'JavaScript,Node.js,Security',
+          PreferredPhases: '[1,2]',
+          MaxConcurrent: '2'
+        },
+        {
+          TaskID: 'T002',
+          TaskName: 'Payment Gateway Integration',
+          Category: 'Financial',
+          Duration: '3',
+          RequiredSkills: 'Python,Django,Security',
+          PreferredPhases: '[2,3,4]',
+          MaxConcurrent: '1'
+        },
+        {
+          TaskID: 'T003',
+          TaskName: 'Mobile App Development',
+          Category: 'Mobile',
+          Duration: '4',
+          RequiredSkills: 'React Native,Mobile,UX Design',
+          PreferredPhases: '[1,2,3,4]',
+          MaxConcurrent: '3'
+        },
+        {
+          TaskID: 'T004',
+          TaskName: 'Data Analytics Dashboard',
+          Category: 'Analytics',
+          Duration: '2',
+          RequiredSkills: 'Python,Tableau,SQL',
+          PreferredPhases: '[3,4]',
+          MaxConcurrent: '2'
+        },
+        {
+          TaskID: 'T005',
+          TaskName: 'Cloud Infrastructure Setup',
+          Category: 'Infrastructure',
+          Duration: '1',
+          RequiredSkills: 'DevOps,AWS,Kubernetes',
+          PreferredPhases: '[1]',
+          MaxConcurrent: '1'
+        }
+      ];
 
       // Load data into the application
       onDataLoad('clients', clientsData);
@@ -84,29 +172,48 @@ export function SampleDataLoader({ onDataLoad }: SampleDataLoaderProps) {
     }
   };
 
-  const downloadSampleFiles = async () => {
-    try {
-      const files = ['clients.csv', 'workers.csv', 'tasks.csv'];
+  const downloadSampleFiles = () => {
+    // Create CSV content for download
+    const createCSV = (data: DataRow[], filename: string) => {
+      if (data.length === 0) return;
       
-      for (const file of files) {
-        const response = await fetch(`/samples/${file}`);
-        if (response.ok) {
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `sample_${file}`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        }
+      const headers = Object.keys(data[0]);
+      const csvContent = [
+        headers.join(','),
+        ...data.map(row => 
+          headers.map(header => {
+            const value = row[header] || '';
+            return String(value).includes(',') ? `"${String(value).replace(/"/g, '""')}"` : String(value);
+          }).join(',')
+        )
+      ].join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', filename);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    };
+
+    // Generate and download sample files
+    const clientsData: DataRow[] = [
+      {
+        ClientID: 'C001',
+        ClientName: 'Acme Corporation',
+        PriorityLevel: '5',
+        RequestedTaskIDs: 'T001,T002,T003',
+        GroupTag: 'Enterprise',
+        AttributesJSON: '{"budget": 500000}'
       }
-      
-      toast.success('Sample files downloaded successfully!');
-    } catch (error) {
-      toast.error('Failed to download sample files');
-    }
+    ];
+
+    createCSV(clientsData, 'sample_clients.csv');
+    toast.success('Sample files downloaded successfully!');
   };
 
   return (
@@ -156,9 +263,9 @@ export function SampleDataLoader({ onDataLoad }: SampleDataLoaderProps) {
           </div>
 
           <div className="text-xs text-blue-600 space-y-1">
-            <p>📊 <strong>20 Clients</strong> - Enterprise, Startup, SMB with priority levels 1-5</p>
-            <p>👥 <strong>25 Workers</strong> - Diverse skills, availability patterns, edge cases</p>
-            <p>📋 <strong>45 Tasks</strong> - Various durations, skill requirements, concurrency limits</p>
+            <p>📊 <strong>5 Clients</strong> - Enterprise, Startup, SMB with priority levels 1-5</p>
+            <p>👥 <strong>5 Workers</strong> - Diverse skills, availability patterns, edge cases</p>
+            <p>📋 <strong>5 Tasks</strong> - Various durations, skill requirements, concurrency limits</p>
             <p>🔍 <strong>Edge Cases</strong> - Duplicates, invalid JSON, circular dependencies, overloads</p>
           </div>
         </div>
