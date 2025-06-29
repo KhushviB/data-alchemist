@@ -109,13 +109,14 @@ export function FileUpload({ onDataUpload }: FileUploadProps) {
       throw new Error('No data found in file');
     }
 
-    // Get all unique column names from the data
-    const allColumns = new Set<string>();
+    // Get all unique column names from the data - Fixed Set iteration
+    const allColumnsSet = new Set<string>();
     data.forEach(row => {
-      Object.keys(row).forEach(key => allColumns.add(key));
+      Object.keys(row).forEach(key => allColumnsSet.add(key));
     });
+    const allColumns = Array.from(allColumnsSet);
 
-    const columns: ColumnSchema[] = Array.from(allColumns).map(columnName => {
+    const columns: ColumnSchema[] = allColumns.map(columnName => {
       return detectColumnSchema(columnName, data);
     });
 
@@ -235,9 +236,9 @@ export function FileUpload({ onDataUpload }: FileUploadProps) {
     const nullCount = data.filter(row => !row[columnName] || row[columnName] === '').length;
     const required = (nullCount / data.length) < 0.1;
 
-    // Determine if unique
-    const uniqueValues = new Set(values);
-    const unique = uniqueValues.size === values.length && values.length > 1;
+    // Determine if unique - Fixed Set iteration
+    const uniqueValuesSet = new Set(values);
+    const unique = uniqueValuesSet.size === values.length && values.length > 1;
 
     // Set validation rules based on type and patterns
     const validation: ColumnSchema['validation'] = {};
@@ -256,9 +257,9 @@ export function FileUpload({ onDataUpload }: FileUploadProps) {
       validation.max = 5;
     }
 
-    // Status/category enum detection
-    if (uniqueValues.size <= 10 && uniqueValues.size > 1 && bestType === 'string') {
-      validation.enum = Array.from(uniqueValues).map(v => String(v));
+    // Status/category enum detection - Fixed Set iteration
+    if (uniqueValuesSet.size <= 10 && uniqueValuesSet.size > 1 && bestType === 'string') {
+      validation.enum = Array.from(uniqueValuesSet).map(v => String(v));
     }
 
     return {
@@ -334,7 +335,8 @@ export function FileUpload({ onDataUpload }: FileUploadProps) {
         relationships.push({
           table: 'tasks',
           column: column.name,
-          type: 'many-to-one'
+          type: 'many-to-one',
+          confidence: 0.9
         });
       }
       
@@ -342,7 +344,8 @@ export function FileUpload({ onDataUpload }: FileUploadProps) {
         relationships.push({
           table: 'workers',
           column: column.name,
-          type: 'many-to-one'
+          type: 'many-to-one',
+          confidence: 0.9
         });
       }
       
@@ -350,7 +353,8 @@ export function FileUpload({ onDataUpload }: FileUploadProps) {
         relationships.push({
           table: 'clients',
           column: column.name,
-          type: 'many-to-one'
+          type: 'many-to-one',
+          confidence: 0.9
         });
       }
     });
