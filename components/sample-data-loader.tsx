@@ -36,13 +36,13 @@ export function SampleDataLoader({ onDataLoad }: SampleDataLoaderProps) {
         tasksResponse.text()
       ]);
 
-      // Parse CSV data
+      // Parse CSV data with explicit typing
       const parseCSV = (text: string): DataRow[] => {
         const lines = text.trim().split('\n');
         const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
         
         return lines.slice(1).map(line => {
-          const values = [];
+          const values: string[] = []; // Explicitly type as string array
           let current = '';
           let inQuotes = false;
           
