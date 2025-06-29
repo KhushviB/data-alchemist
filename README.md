@@ -2,29 +2,9 @@
 
 Transform your messy CSV/XLSX files into intelligent, validated resource allocation systems with AI-powered validation, natural language search, and automated error correction.
 
-# 🧠 DataCleaner AI
-### The World's First Intelligent Database Configurator
+## ✨ What is Data Alchemist?
 
-<div align="center">
-
-![DataCleaner AI Banner](https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1200&h=400&fit=crop)
-
-[![Next.js](https://img.shields.io/badge/Next.js-13.5-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![AI Powered](https://img.shields.io/badge/AI-Powered-FF6B6B?style=for-the-badge&logo=openai)](https://openai.com/)
-
-**Transform messy spreadsheets into production-ready databases with the power of AI**
-
-[🚀 Live Demo](https://datacleaner-ai.vercel.app) • [📖 Documentation](#documentation) • [🎯 Features](#features) • [🛠️ Installation](#installation)
-
-</div>
-
----
-
-## ✨ What is DataCleaner AI?
-
-DataCleaner AI is a revolutionary web application that uses artificial intelligence to automatically detect, clean, and configure database schemas from any CSV or Excel file. It's like having a senior database architect and data scientist working 24/7 to optimize your data infrastructure.
+Data Alchemist is a revolutionary web application that uses artificial intelligence to automatically detect, clean, and configure database schemas from any CSV or Excel file. It's like having a senior database architect and data scientist working 24/7 to optimize your data infrastructure.
 
 ### 🎯 Perfect For:
 - **Enterprise Teams** building scalable data pipelines
@@ -285,74 +265,7 @@ git push origin feature/amazing-feature
 - Secure file handling
 
 ---
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2024 DataCleaner AI
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-```
-
----
-
-## 🙏 Acknowledgments
-
-### 🌟 Special Thanks
-- **OpenAI** for inspiring AI-driven development
-- **Vercel** for amazing deployment platform
-- **shadcn/ui** for beautiful component library
-- **Tailwind CSS** for incredible styling system
-- **Next.js Team** for the fantastic framework
-
-### 🎨 Design Inspiration
-- **Linear** - Clean, minimal interface design
-- **Notion** - Intuitive user experience patterns
-- **Figma** - Collaborative workflow concepts
-- **Stripe** - Premium visual aesthetics
-
----
-
-## 📞 Support & Community
-
-<div align="center">
-
-### 💬 Get Help
-[![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/datacleaner-ai)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/datacleaner_ai)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:support@datacleaner-ai.com)
-
-### 📚 Resources
-[📖 Documentation](https://docs.datacleaner-ai.com) • [🎥 Video Tutorials](https://youtube.com/datacleaner-ai) • [📝 Blog](https://blog.datacleaner-ai.com) • [🔧 API Reference](https://api.datacleaner-ai.com)
-
-</div>
-
----
-
-<div align="center">
-
-### 🚀 Ready to Transform Your Data?
-
-**[Get Started Now](https://datacleaner-ai.vercel.app)** • **[View Demo](https://demo.datacleaner-ai.com)** • **[Read the Docs](https://docs.datacleaner-ai.com)**
-
----
-
-**Made with ❤️ by the DataCleaner AI Team**
+**Made with ❤️ by Khushvi Bamrolia**
 
 *Turning messy data into beautiful databases, one file at a time.*
 
-[![Star on GitHub](https://img.shields.io/github/stars/yourusername/datacleaner-ai?style=social)](https://github.com/yourusername/datacleaner-ai)
-
-</div>
