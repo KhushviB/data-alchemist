@@ -12,20 +12,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Plus, Trash2, Brain, Edit3, Check, X, Lightbulb, Wand2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { BusinessRule, ClientData, WorkerData, TaskData } from '@/app/page';
+import { BusinessRule, DataRow, TableSchema } from '@/app/page';
 
 interface RulesCreatorProps {
   rules: BusinessRule[];
   onRulesChange: (rules: BusinessRule[]) => void;
   data: {
-    clients: ClientData[];
-    workers: WorkerData[];
-    tasks: TaskData[];
+    clients: DataRow[];
+    workers: DataRow[];
+    tasks: DataRow[];
   };
+  schemas: Record<string, TableSchema>;
   aiSuggestions: BusinessRule[];
 }
 
-export function RulesCreator({ rules, onRulesChange, data, aiSuggestions }: RulesCreatorProps) {
+export function RulesCreator({ rules, onRulesChange, data, schemas, aiSuggestions }: RulesCreatorProps) {
   const [newRuleText, setNewRuleText] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [editingRule, setEditingRule] = useState<string | null>(null);
@@ -224,7 +225,8 @@ export function RulesCreator({ rules, onRulesChange, data, aiSuggestions }: Rule
       slotRestriction: '🎯',
       patternMatch: '🔍',
       precedenceOverride: '⚡',
-      custom: '⚙️'
+      custom: '⚙️',
+      aiGenerated: '🤖'
     };
     return icons[type] || '📋';
   };
@@ -315,7 +317,7 @@ Examples:
               </div>
 
               {/* Dynamic parameter inputs based on rule type */}
-              {manualRuleType === 'coRun' && (
+              {manualRuleType === 'coRun' && tasks.length > 0 && (
                 <div>
                   <label className="text-sm font-medium">Select Tasks to Co-Run</label>
                   <div className="grid grid-cols-3 gap-2 mt-2">
