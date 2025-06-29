@@ -1,0 +1,26 @@
+WorkerID,WorkerName,Skills,AvailableSlots,MaxLoadPerPhase,WorkerGroup,QualificationLevel
+W001,Alice Johnson,"JavaScript,React,Node.js","[1,2,3,4,5]",3,Frontend,5
+W002,Bob Smith,"Python,Django,PostgreSQL","[1,3,5]",2,Backend,4
+W003,Carol Davis,"Java,Spring,Microservices","[2,4,6]",4,Backend,5
+W004,David Wilson,"React,TypeScript,GraphQL","[1,2,3]",2,Frontend,3
+W005,Emma Brown,"Python,Machine Learning,TensorFlow","[3,4,5,6]",3,DataScience,5
+W006,Frank Miller,"DevOps,Kubernetes,AWS","[1,2,4,5,6]",5,Infrastructure,4
+W007,Grace Lee,"UX Design,Figma,Prototyping","[1,2,3,4]",2,Design,4
+W008,Henry Taylor,"QA,Selenium,Automation","[2,3,4,5]",3,QA,3
+W009,Ivy Chen,"Mobile,React Native,iOS","[1,3,4,6]",2,Mobile,4
+W010,Jack Anderson,"Security,Penetration Testing,CISSP","[2,4,5]",2,Security,5
+W011,Kate Rodriguez,"Project Management,Scrum,Agile","[1,2,3,4,5,6]",4,Management,4
+W012,Liam O'Connor,"Blockchain,Solidity,Web3","[3,5,6]",2,Blockchain,3
+W013,Maya Patel,"Data Analytics,Tableau,SQL","[1,2,4,5]",3,Analytics,4
+W014,Noah Kim,"C++,Embedded Systems,IoT","[2,3,5,6]",3,Embedded,5
+W015,Olivia Zhang,"Marketing,SEO,Content Strategy","[1,3,4]",2,Marketing,3
+W016,Paul Garcia,"Sales,CRM,Lead Generation","[1,2,5,6]",3,Sales,4
+W017,Quinn Murphy,"HR,Recruitment,Training","[2,3,4]",2,HR,3
+W018,Ruby Singh,"Finance,Accounting,Budgeting","[1,4,5,6]",3,Finance,4
+W019,Sam Thompson,"Legal,Compliance,Contracts","[2,3,5]",2,Legal,5
+W020,Tina Williams,"Operations,Process Improvement,Lean","[1,2,3,4,5]",4,Operations,4
+W021,Overloaded Worker,"JavaScript,Python","[1,2]",5,TestGroup,3
+W022,No Skills Worker,"","[1,2,3]",2,TestGroup,2
+W023,Invalid Slots Worker,"JavaScript,React","invalid_slots_format",3,TestGroup,3
+W024,Negative Load Worker,"Python,Django","[1,2,3]",-1,TestGroup,2
+W025,Missing Name Worker,"Java,Spring","[1,2]",2,TestGroup,3

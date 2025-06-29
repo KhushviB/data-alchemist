@@ -1,0 +1,46 @@
+TaskID,TaskName,Category,Duration,RequiredSkills,PreferredPhases,MaxConcurrent
+T001,User Authentication System,Security,2,"JavaScript,Node.js,Security","[1,2]",2
+T002,Payment Gateway Integration,Financial,3,"Python,Django,Security","[2,3,4]",1
+T003,Mobile App Development,Mobile,4,"React Native,Mobile,UX Design","[1,2,3,4]",3
+T004,Data Analytics Dashboard,Analytics,2,"Python,Tableau,SQL","[3,4]",2
+T005,Cloud Infrastructure Setup,Infrastructure,1,"DevOps,AWS,Kubernetes","[1]",1
+T006,Machine Learning Model,DataScience,5,"Python,Machine Learning,TensorFlow","[3,4,5,6]",2
+T007,E-commerce Platform,Web,6,"JavaScript,React,Node.js,PostgreSQL","[1,2,3,4,5,6]",4
+T008,Content Management System,Web,3,"PHP,MySQL,WordPress","[2,3,4]",2
+T009,API Gateway Development,Backend,2,"Java,Spring,Microservices","[2,3]",3
+T010,Blockchain Integration,Blockchain,4,"Blockchain,Solidity,Web3","[3,4,5,6]",1
+T011,IoT Device Management,Embedded,3,"C++,Embedded Systems,IoT","[2,3,4]",2
+T012,AI Chatbot Development,AI,4,"Python,Machine Learning,NLP","[3,4,5]",2
+T013,Cybersecurity Audit,Security,2,"Security,Penetration Testing,CISSP","[1,2]",1
+T014,Healthcare Data Platform,Healthcare,5,"Python,Django,HIPAA,Security","[2,3,4,5,6]",2
+T015,Telemedicine App,Healthcare,4,"React Native,Mobile,Security","[1,2,3,4]",3
+T016,Medical Records System,Healthcare,6,"Java,Spring,PostgreSQL,Security","[1,2,3,4,5,6]",2
+T017,Learning Management System,Education,4,"JavaScript,React,Node.js","[2,3,4,5]",3
+T018,Student Portal Development,Education,3,"Python,Django,PostgreSQL","[1,2,3]",2
+T019,Trading Platform,Financial,5,"Java,Spring,Real-time,Security","[2,3,4,5,6]",1
+T020,Risk Assessment Tool,Financial,3,"Python,Machine Learning,Finance","[3,4,5]",2
+T021,Inventory Management,Retail,3,"JavaScript,React,PostgreSQL","[1,2,3]",3
+T022,POS System Integration,Retail,2,"Java,Spring,Integration","[2,3]",2
+T023,Microservices Architecture,Technology,4,"Java,Spring,Microservices,Kubernetes","[1,2,3,4]",3
+T024,CI/CD Pipeline Setup,Technology,2,"DevOps,Jenkins,Docker","[1,2]",2
+T025,Monitoring Dashboard,Technology,3,"JavaScript,React,Monitoring","[3,4,5]",2
+T026,Factory Automation,Manufacturing,5,"C++,Embedded Systems,Automation","[2,3,4,5,6]",2
+T027,Quality Control System,Manufacturing,3,"Python,Machine Learning,QA","[1,2,3]",2
+T028,Content Delivery Network,Media,3,"DevOps,CDN,Optimization","[2,3,4]",2
+T029,Video Streaming Platform,Media,5,"JavaScript,React,Streaming,Real-time","[1,2,3,4,5]",3
+T030,Media Asset Management,Media,4,"Python,Django,Media Processing","[2,3,4,5]",2
+T031,Smart Grid System,Energy,6,"C++,Embedded Systems,IoT,Real-time","[1,2,3,4,5,6]",2
+T032,Energy Analytics Platform,Energy,4,"Python,Machine Learning,Analytics","[3,4,5,6]",2
+T033,Route Optimization,Logistics,3,"Python,Machine Learning,Optimization","[1,2,3]",2
+T034,Tracking System,Logistics,4,"JavaScript,React,Real-time,GPS","[2,3,4,5]",3
+T035,Warehouse Management,Logistics,5,"Java,Spring,PostgreSQL,Automation","[1,2,3,4,5]",2
+T036,Circular Task A,TestCategory,1,"JavaScript","[1]",1
+T037,Circular Task B,TestCategory,1,"Python","[2]",1
+T038,Zero Duration Task,TestCategory,0,"JavaScript","[1]",1
+T039,Negative Duration Task,TestCategory,-1,"Python","[1]",1
+T040,No Skills Required Task,TestCategory,2,"","[1,2]",2
+T041,Invalid Phases Task,TestCategory,2,"JavaScript","invalid_phases",1
+T042,Impossible Concurrency Task,TestCategory,2,"UltraRareSkill","[1,2]",100
+T043,Missing Category Task,,2,"JavaScript","[1,2]",1
+T044,Malformed JSON Phases,TestCategory,2,"JavaScript","{invalid_json}",1
+T045,Range Phases Task,TestCategory,3,"Python","1-4",2
